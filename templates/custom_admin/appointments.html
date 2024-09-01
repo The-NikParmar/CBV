@@ -1,0 +1,464 @@
+{% extends "custom_admin/base.html" %}
+{% load static %}
+{% block content %}
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Appointments</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Appointments</li>
+              <li class="breadcrumb-item active">Appointments List</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h3 class="widget-title">Appointment List</h3>
+                  {% comment %} <a href="add-appointment.html" class="btn btn-primary"
+                    ><span class="ti-plus"></span> Add Appointment</a
+                  > {% endcomment %}
+                </div>
+                <div class="table-responsive mb-3">
+                  <table
+                    id="tableId"
+                    class="table table-bordered table-striped"
+                  >
+                    <thead>
+                      <tr>
+                        <th class="no-sort">
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="select-all"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="select-all"
+                            ></label>
+                          </div>
+                        </th>
+                        <th>Appointment ID</th>
+                        <th>Patient ID</th>
+                        <th>Doctor Name</th>
+                        <th>Problem</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="1"
+                            />
+                            <label class="custom-control-label" for="1"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP872</a></td>
+                        <td>P12Y</td>
+                        <td>Dr Manoj</td>
+                        <td>Small knee fracture</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="2"
+                            />
+                            <label class="custom-control-label" for="2"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP8W7</a>2</td>
+                        <td>P42Y</td>
+                        <td>Dr Daniel</td>
+                        <td>Viral Fever</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="3"
+                            />
+                            <label class="custom-control-label" for="3"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP873</a></td>
+                        <td>P12G</td>
+                        <td>Dr Manoj</td>
+                        <td>-</td>
+                        <td>
+                          <span class="badge badge-warning">Pending</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="4"
+                            />
+                            <label class="custom-control-label" for="4"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">APY72</a></td>
+                        <td>P1DY</td>
+                        <td>Dr Susan</td>
+                        <td>Chest pain</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="5"
+                            />
+                            <label class="custom-control-label" for="5"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP872</a></td>
+                        <td>P12Y</td>
+                        <td>Dr Manoj</td>
+                        <td>Small knee fracture</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="6"
+                            />
+                            <label class="custom-control-label" for="6"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP8W7</a>2</td>
+                        <td>P42Y</td>
+                        <td>Dr Daniel</td>
+                        <td>Viral Fever</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="7"
+                            />
+                            <label class="custom-control-label" for="7"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP873</a></td>
+                        <td>P12G</td>
+                        <td>Dr Manoj</td>
+                        <td>-</td>
+                        <td>
+                          <span class="badge badge-warning">Pending</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="8"
+                            />
+                            <label class="custom-control-label" for="8"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">APY72</a></td>
+                        <td>P1DY</td>
+                        <td>Dr Susan</td>
+                        <td>Chest pain</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="9"
+                            />
+                            <label class="custom-control-label" for="9"></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP872</a></td>
+                        <td>P12Y</td>
+                        <td>Dr Manoj</td>
+                        <td>Small knee fracture</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="10"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="10"
+                            ></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP8W7</a>2</td>
+                        <td>P42Y</td>
+                        <td>Dr Daniel</td>
+                        <td>Viral Fever</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="11"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="11"
+                            ></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">AP873</a></td>
+                        <td>P12G</td>
+                        <td>Dr Manoj</td>
+                        <td>-</td>
+                        <td>
+                          <span class="badge badge-warning">Pending</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="12"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="12"
+                            ></label>
+                          </div>
+                        </td>
+                        <td><a href="about-appointment.html">APY72</a></td>
+                        <td>P1DY</td>
+                        <td>Dr Susan</td>
+                        <td>Chest pain</td>
+                        <td>
+                          <span class="badge badge-success">Active</span>
+                        </td>
+                        <td>
+                          <a
+                            href="edit-appointment.html"
+                            class="btn btn-primary btn-sm"
+                          >
+                            <span class="ti-pencil-alt"></span> Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger btn-sm">
+                            <span class="ti-trash"></span> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+    <!-- Back to Top -->
+    <a id="back-to-top" href="#" class="back-to-top">
+      <span class="ti-angle-up"></span>
+    </a>
+{% endblock %}

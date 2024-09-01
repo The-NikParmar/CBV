@@ -1,0 +1,110 @@
+{% extends "custom_admin/base.html" %}
+{% load static %}
+{% block content %}
+   
+        <!-- Breadcrumb -->
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Specialization</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Specialization</li>
+              <li class="breadcrumb-item active">All Specialization</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h3 class="widget-title">Specialization List</h3>
+                  <a href="{% url "custom_admin:Addspecialization" %}" class="btn btn-primary"
+                    ><span class="ti-plus"></span> Add Specialization</a
+                  >
+                </div>
+                <div class="table-responsive mb-3">
+                  <table id="tableId" class="table table-bordered table-striped">
+                      <thead>
+                          <tr>
+                              <th>No</th>
+                              <th>Specialization Name</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for specialization in specializations %}
+                          <tr>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ specialization.specialization_name }}</td>
+                              <td>
+                                  <a href="{% url 'custom_admin:edit_specialization' specialization.pk %}" class="btn btn-primary">
+                                      <span class="ti-pencil-alt"></span> Edit
+                                  </a>
+                                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_{{ specialization.pk }}">
+                                    <span class="ti-trash"></span> Delete
+                                  </button>
+                              </td>
+                          </tr>
+                          {% empty %}
+                          <tr>
+                              <td colspan="3">No specializations found.</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+   <!-- Modals for each specialization -->
+    {% for specialization in specializations %}
+    <div class="modal fade proclinic-modal-lg" id="deleteModal_{{ specialization.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lorvens" role="document">
+        <div class="modal-content proclinic-box-shadow2">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this <b>{{ specialization.specialization_name}}</b> specialization?</h5>
+          </div>
+          <div class="modal-footer">
+            <!-- Form for delete action -->
+            <form method="post" action="{% url 'custom_admin:delete_specialization' specialization.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endblock  %}
+
+

@@ -1,0 +1,98 @@
+{% extends "doctor/base.html" %}
+{% load static %}
+{% block content %}
+<!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Doctor Details</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Doctors</li>
+              <li class="breadcrumb-item active">Doctor Details</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Doctor Details</h3>
+                <div class="row no-mp">
+                  <div class="col-md-4">
+                    <div class="card mb-4">
+                      <img
+                        class="card-img-top"
+                        src="{{ doctor.profile_photo.url }}"
+                        alt="Card image"
+                      />
+                      <div class="card-body">
+                        <h4 class="card-title">Dr {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h4>
+                        <p class="card-text">
+                          {{ doctor.doctor_details }}
+                        </p>
+                        <a href="{% url "doctor:edit-profile" %}" class="btn btn-success mb-2"
+                          ><span class="ti-pencil-alt"></span> Edit Profile</a
+                        >
+                        <a href="{% url "doctor:doctor-change-password" %}" class="btn btn-primary">
+                          <span class="ti-key"></span> Change Password
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                            <td><strong>Specialization</strong></td>
+                            <td>{{ doctor.specialization.specialization_name }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Experience</strong></td>
+                            <td>{{ doctor.experience }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Gender</strong></td>
+                            <td>{{ doctor.user.gender }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Address</strong></td>
+                            <td>{{ doctor.user.address }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Phone</strong></td>
+                            <td>{{ doctor.user.phone_number }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Date Of Birth</strong></td>
+                            <td>{{ doctor.user.date_of_birth }}</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Email</strong></td>
+                            <td>{{ doctor.user.email }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+    {% endblock  %}

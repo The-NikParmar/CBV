@@ -1,0 +1,132 @@
+{% extends "custom_admin/base.html" %}
+{% load static %}
+{% block content %}
+     
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Add Room Allotment</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Room Allotments</li>
+              <li class="breadcrumb-item active">Add Room Allotment</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Add Room Allotment</h3>
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="{{ form.room_type.id_for_label }}">Room Type</label>
+                      <select 
+                          class="form-control{% if form.room_type.errors %} is-invalid{% endif %}" 
+                          name="{{ form.room_type.name }}" 
+                          id="{{ form.room_type.id_for_label }}">
+                          <option value="">Select Room Type</option>
+                          <option value="ICU" {% if form.room_type.value == 'ICU' %}selected{% endif %}>ICU</option>
+                          <option value="General" {% if form.room_type.value == 'General' %}selected{% endif %}>General</option>
+                          <option value="Private" {% if form.room_type.value == 'Private' %}selected{% endif %}>Private</option>
+                      </select>
+                      {% if form.room_type.errors %}
+                          <div class="invalid-feedback">
+                              {% for error in form.room_type.errors %}
+                                  {{ error }}
+                              {% endfor %}
+                          </div>
+                      {% endif %}
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="{{ form.allotment_date.id_for_label }}">Allotment Date</label>
+                    <input 
+                        type="date" 
+                        class="form-control{% if form.allotment_date.errors %} is-invalid{% endif %}" 
+                        name="{{ form.allotment_date.name }}" 
+                        id="{{ form.allotment_date.id_for_label }}" 
+                        placeholder="Allotment Date" 
+                        value="{{ form.allotment_date.value|default_if_none:'' }}" 
+                    />
+                    {% if form.allotment_date.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.allotment_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                      <div class="form-group col-md-6">
+                          <label for="{{ form.patient.id_for_label }}">Patient Name</label>
+                          <select 
+                              class="form-control{% if form.patient.errors %} is-invalid{% endif %}" 
+                              name="{{ form.patient.name }}" 
+                              id="{{ form.patient.id_for_label }}">
+                              {% for patient in form.patient.field.queryset %}
+                                  <option value="{{ patient.pk }}" {% if patient.pk == form.patient.value %}selected{% endif %}>
+                                      {{ patient }}
+                                  </option>
+                              {% endfor %}
+                          </select>
+                          {% if form.patient.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.patient.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+              
+                      <div class="form-group col-md-6">
+                          <label for="{{ form.doctor.id_for_label }}">Doctor Name</label>
+                          <select 
+                              class="form-control{% if form.doctor.errors %} is-invalid{% endif %}" 
+                              name="{{ form.doctor.name }}" 
+                              id="{{ form.doctor.id_for_label }}">
+                              {% for doctor in form.doctor.field.queryset %}
+                                  <option value="{{ doctor.pk }}" {% if doctor.pk == form.doctor.value %}selected{% endif %}>
+                                      {{ doctor }}
+                                  </option>
+                              {% endfor %}
+                          </select>
+                          {% if form.doctor.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.doctor.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+              
+                      <div class="form-group col-md-6 mb-3">
+                          <button type="submit" class="btn btn-primary btn-lg">
+                              Allot Room
+                          </button>
+                      </div>
+                  </div>
+              </form>
+              
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+   {% endblock %}

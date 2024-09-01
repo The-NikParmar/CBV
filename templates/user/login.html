@@ -1,0 +1,166 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ProClinic-Bootstrap4 Hospital Admin</title>
+    <!-- Fav Icon Link -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/fav.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/red.css' %}" id="style_theme">
+	<!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <script src="{% static 'js/modernizr.min.js' %}"></script>
+</head>
+<body class="auth-bg">
+    <!-- Pre Loader -->
+    <div class="loading">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <!--/Pre Loader -->
+    <div class="wrapper">
+        <!-- Page Content -->
+        <div id="content">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title text-center">Login</h3>
+                            {{request.user.email}}
+                            {% comment %} <form method="post" action="{% url 'user:login' %}" id="loginForm">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="{{ form.username.id_for_label }}">Email</label>
+                                        <input 
+                                            type="email" 
+                                            class="form-control" 
+                                            name="username" 
+                                            id="{{ form.username.id_for_label }}" 
+                                            placeholder="Email" 
+                                            required
+                                            value="{{ form.username.value|default_if_none:'' }}" 
+                                        />
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="{{ form.password.id_for_label }}">Password</label>
+                                        <input 
+                                            type="password" 
+                                            class="form-control" 
+                                            required
+                                            name="password" 
+                                            id="{{ form.password.id_for_label }}" 
+                                            placeholder="Password" 
+                                        />
+                                      
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="auth-footer-text">
+                                        <small class="text-center">
+                                            Already Sign Up,
+                                            <a href="{% url 'user:PatientSignup' %}">Sign Up</a> Here
+                                        </small>
+                                    </div>
+                                </div>
+                            </form> {% endcomment %}
+                            <form method="post" action="{% url 'user:login' %}" id="loginForm">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <!-- Email Field -->
+                                    <div class="form-group col-md-12">
+                                        <label for="{{ form.email.id_for_label }}">Email</label>
+                                        {{ form.email.errors }}
+                                        <input 
+                                            type="email" 
+                                            class="form-control" 
+                                            name="email" 
+                                            id="{{ form.email.id_for_label }}" 
+                                            placeholder="Email" 
+                                            required
+                                            value="{{ form.email.value|default_if_none:'' }}" 
+                                        />
+                                    </div>
+                            
+                                    <!-- Password Field -->
+                                    <div class="form-group col-md-12">
+                                        <label for="{{ form.password.id_for_label }}">Password</label>
+                                        {{ form.password.errors }}
+                                        <input 
+                                            type="password" 
+                                            class="form-control" 
+                                            name="password" 
+                                            id="{{ form.password.id_for_label }}" 
+                                            placeholder="Password" 
+                                            required
+                                        />
+                                    </div>
+                                    
+                                    <!-- Submit Button -->
+                                    <div class="form-group col-md-12 mb-3">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Sign Up Link -->
+                                    <div class="auth-footer-text">
+                                        <small class="text-center">
+                                            Already Sign Up,
+                                            <a href="{% url 'user:PatientSignup' %}">Sign Up</a> Here
+                                        </small>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Content -->
+    </div>
+    <!-- Jquery Library-->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <!-- Popper Library-->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap Library-->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Custom Script-->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% if form.non_field_errors %}
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{% for error in form.non_field_errors %}{{ error }}{% endfor %}',
+                });
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

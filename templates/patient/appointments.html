@@ -1,0 +1,300 @@
+{% extends "patient/base.html" %}
+{% load static %}
+{% block content %}
+
+		<!-- Page Content -->
+		<div id="content">
+			<!-- Top Navigation -->
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="responsive-logo">
+						<a href="index.html"><img src="images/logo-dark.png" class="logo" alt="logo"></a>
+					</div>
+					<ul class="nav">
+						<li class="nav-item">
+							<span class="ti-menu" id="sidebarCollapse"></span>
+						</li>
+						<li class="nav-item">
+							<span title="Fullscreen" class="ti-fullscreen fullscreen"></span>
+						</li>
+						
+						<li class="nav-item">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="ti-user"></span>
+							</a>
+							<div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
+								<h5>John Willing</h5>
+								<a class="dropdown-item" href="about-patient.html">
+									<span class="ti-user"></span>Profile</a>
+
+                <a class="dropdown-item" href="#">
+                    <span class="ti-power-off"></span>Logout</a>
+							</div>
+						</li>
+					</ul>
+				
+				</div>
+			</nav>
+			<!-- /Top Navigation -->
+			<!-- Breadcrumb -->
+			<!-- Page Title -->
+			<div class="row no-margin-padding">
+				<div class="col-md-6">
+					<h3 class="block-title">Appointments</h3>
+				</div>
+				<div class="col-md-6">
+					<ol class="breadcrumb">						
+						<li class="breadcrumb-item">
+							<a href="index.html">
+								<span class="ti-home"></span>
+							</a>
+                        </li>
+                        <li class="breadcrumb-item">Appointments</li>
+						<li class="breadcrumb-item active">Appointments List</li>
+					</ol>
+				</div>
+			</div>
+			<!-- /Page Title -->
+
+			<!-- /Breadcrumb -->
+			<!-- Main Content -->
+			<div class="container-fluid">
+
+				<div class="row">
+					<!-- Widget Item -->
+					<div class="col-md-12">
+						<div class="widget-area-2 proclinic-box-shadow">
+							<div
+								class="d-flex justify-content-between align-items-center mb-3"
+								>
+								<h3 class="widget-title">Appointment List</h3>
+								<a href="{% url "patient:book-appointment" %}" class="btn btn-primary"
+									><span class="ti-plus"></span> Book Appointment</a
+								>
+								</div>
+											<div class="table-responsive mb-3">
+								<table id="tableId" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th class="no-sort">
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="select-all">
+													<label class="custom-control-label" for="select-all"></label>
+												</div>
+											</th>
+											<th>Appointment ID</th>
+											<th>Doctor Name</th>
+											<th>Problem</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="1">
+													<label class="custom-control-label" for="1"></label>
+												</div>
+											</td>
+											<td>AP872</td>
+											<td>Dr Manoj</td>
+											<td>Small knee fracture</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                      </tr>
+                    <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="2">
+													<label class="custom-control-label" for="2"></label>
+												</div>
+											</td>
+											<td>AP8W72</td>
+											<td>Dr Daniel</td>
+											<td>Viral Fever</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="3">
+													<label class="custom-control-label" for="3"></label>
+												</div>
+											</td>
+											<td>AP873</td>
+											<td>Dr Manoj</td>
+											<td>-</td>
+											<td>
+												<span class="badge badge-warning">Pending</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="4">
+													<label class="custom-control-label" for="4"></label>
+												</div>
+											</td>
+											<td>APY72</td>
+											<td>Dr Susan</td>
+											<td>Chest pain</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="5">
+													<label class="custom-control-label" for="5"></label>
+												</div>
+											</td>
+											<td>AP872</td>
+											<td>Dr Manoj</td>
+											<td>Small knee fracture</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="6">
+													<label class="custom-control-label" for="6"></label>
+												</div>
+											</td>
+											<td>AP8W72</td>
+											<td>Dr Daniel</td>
+											<td>Viral Fever</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="7">
+													<label class="custom-control-label" for="7"></label>
+												</div>
+											</td>
+											<td>AP873</td>
+											<td>Dr Manoj</td>
+											<td>-</td>
+											<td>
+												<span class="badge badge-warning">Pending</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="8">
+													<label class="custom-control-label" for="8"></label>
+												</div>
+											</td>
+											<td>APY72</td>
+											<td>Dr Susan</td>
+											<td>Chest pain</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="9">
+													<label class="custom-control-label" for="9"></label>
+												</div>
+											</td>
+											<td>AP872</td>
+											<td>Dr Manoj</td>
+											<td>Small knee fracture</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="10">
+													<label class="custom-control-label" for="10"></label>
+												</div>
+											</td>
+											<td>AP8W72</td>
+											<td>Dr Daniel</td>
+											<td>Viral Fever</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="11">
+													<label class="custom-control-label" for="11"></label>
+												</div>
+											</td>
+											<td>AP873</td>
+											<td>Dr Manoj</td>
+											<td>-</td>
+											<td>
+												<span class="badge badge-warning">Pending</span>
+											</td>
+                                        </tr>
+                                        <tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input class="custom-control-input" type="checkbox" id="12">
+													<label class="custom-control-label" for="12"></label>
+												</div>
+											</td>
+											<td>APY72</td>
+											<td>Dr Susan</td>
+											<td>Chest pain</td>
+											<td>
+												<span class="badge badge-success">Active</span>
+											</td>
+										</tr>
+									</tbody>
+                                </table>
+                                
+<!-- 								
+								<button type="button" class="btn btn-danger mt-3 mb-0"><span class="ti-trash"></span> DELETE</button>
+								<button type="button" class="btn btn-primary mt-3 mb-0"><span class="ti-pencil-alt"></span> EDIT</button> -->
+							</div>
+						</div>
+					</div>
+					<!-- /Widget Item -->
+				</div>
+			</div>
+			<!-- /Main Content -->
+		</div>
+		<!-- /Page Content -->
+	</div>
+	<!-- Back to Top -->
+	<a id="back-to-top" href="#" class="back-to-top">
+		<span class="ti-angle-up"></span>
+	</a>
+	<!-- /Back to Top -->
+	<!-- Jquery Library-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<!-- Popper Library-->
+	<script src="js/popper.min.js"></script>
+	<!-- Bootstrap Library-->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Datatable  -->
+	<script src="datatable/jquery.dataTables.min.js"></script>
+	<script src="datatable/dataTables.bootstrap4.min.js"></script>
+    
+	<!-- Custom Script-->
+	<script src="js/custom.js"></script>
+	<script src="js/custom-datatables.js"></script>
+</body>
+
+
+<!-- Mirrored from www.konnectplugins.com/proclinic/Vertical/appointments.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 02 Aug 2024 11:33:33 GMT -->
+</html>
+{% endblock %}

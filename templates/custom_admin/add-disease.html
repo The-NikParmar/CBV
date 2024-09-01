@@ -1,0 +1,110 @@
+{% extends "custom_admin/base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- Breadcrumb -->
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Add specialization</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">specialization</li>
+              <li class="breadcrumb-item active">Add specialization</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Add New Specialization</h3>
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  {% comment %} <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="specialization">Specialization</label>
+                        <select 
+                            class="form-control{% if form.specialization.errors %} is-invalid{% endif %}" 
+                            name="{{ form.specialization.name }}" 
+                            id="{{ form.specialization.id_for_label }}"
+                        >
+                            <option value="" {% if not form.specialization.value %}selected{% endif %}>Select Specialization</option>
+                            {% for specialization in specializations %}
+                                <option value="{{ specialization.id }}" {% if form.specialization.value == specialization.id|stringformat:"s" %}selected{% endif %}>
+                                   <b> {{ specialization.specialization_name }}</b>
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.specialization.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.specialization.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.disease.id_for_label }}">Disease Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control{% if form.disease.errors %} is-invalid{% endif %}" 
+                            name="{{ form.disease.name }}" 
+                            id="{{ form.disease.id_for_label }}" 
+                            placeholder="Enter Disease Name" 
+                            value="{{ form.disease.value|default_if_none:'' }}" 
+                        />
+                        {% if form.disease.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.disease.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.Duration.id_for_label }}">Duration</label>
+                        <input 
+                            type="text" 
+                            class="form-control{% if form.Duration.errors %} is-invalid{% endif %}" 
+                            name="{{ form.Duration.name }}" 
+                            id="{{ form.Duration.id_for_label }}" 
+                            placeholder="Enter in second " 
+                            value="{{ form.Duration.value|default_if_none:'' }}" 
+                        />
+                        {% if form.Duration.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.Duration.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div> {% endcomment %}
+                      <div class="form-group col-md-6 mb-3">
+                          <button type="submit" class="btn btn-primary btn-lg">Add Specialization</button>
+                      </div>
+                  </div>
+              </form>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+   {% endblock %}

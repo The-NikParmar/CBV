@@ -1,0 +1,101 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ProClinic-Bootstrap4 Hospital Admin</title>
+    <!-- Fav  Icon Link -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/fav.png'%}" />
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <!-- themify icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}" />
+    <!-- Animations CSS -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/red.css' %}" id="style_theme" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <!-- morris charts -->
+    <link rel="stylesheet" href="{% static 'charts/css/morris.css' %}" />
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{% static 'css/jquery-jvectormap.css' %}" />
+
+    <script src="{% static 'js/modernizr.min.js' %}"></script>
+  </head>
+
+  <body>
+    <!-- Pre Loader -->
+    <div class="loading">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+    <!--/Pre Loader -->
+    
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="proclinic-bg">
+        <div class="sidebar-header">
+          <a href="index.html"
+            ><img src="{% static 'images/logo.png'%}" class="logo" alt="logo"
+          /></a>
+        </div>
+        
+        <ul class="list-unstyled components">
+          <li>
+            <a href="{% url "patient:user_index" %}"> <span class="ti-home"></span> Dashboard </a>
+          </li>
+
+          <li>
+            <a href="about-patient.html"> <span class="ti-user"></span> Profile </a>
+          </li>
+          
+          <li>
+            <a href="doctors.html"> <span class="ti-support"></span> All Doctors</a>
+          </li>
+          
+          <li>
+            <a href="{% url "patient:appointments" %}"> <span class="ti-pencil-alt"></span> Appointments</a>
+          </li>
+          
+          
+            
+        <div class="nav-help animated fadeIn">
+          <h5><span class="ti-comments"></span> Need Help</h5>
+          <h6><span class="ti-mobile"></span> +1 1234 567 890</h6>
+          <h6><span class="ti-email"></span> email@site.com</h6>
+          <p class="copyright-text">Copy rights &copy; 2018</p>
+        </div>
+      </nav>
+      <!-- /Sidebar -->
+
+{% block content %}
+      
+{% endblock  %}
+
+
+<!-- Back to Top -->
+<a id="back-to-top" href="#" class="back-to-top">
+    <span class="ti-angle-up"></span>
+  </a>
+  <!-- /Back to Top -->
+
+  <!-- Jquery Library-->
+  <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+  <!-- Popper Library-->
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <!-- Bootstrap Library-->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- morris charts -->
+  <script src="{% static 'charts/js/raphael-min.js' %}"></script>
+  <script src="{% static 'charts/js/morris.min.js' %}"></script>
+  <script src="{% static 'js/custom-morris.js' %}"></script>
+
+  <!-- Custom Script-->
+  <script src="{% static 'js/custom.js' %}"></script>
+</body>
+
+</html>

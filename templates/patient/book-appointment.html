@@ -1,0 +1,213 @@
+{% extends "patient/base.html" %}
+{% load static %}
+{% block content %}
+
+      <!-- Page Content -->
+      <div id="content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="responsive-logo">
+              <a href="index.html"
+                ><img src="{% static 'images/logo-dark.png' %}" class="logo" alt="logo"
+              /></a>
+            </div>
+            <ul class="nav">
+              <li class="nav-item">
+                <span class="ti-menu" id="sidebarCollapse"></span>
+              </li>
+              <li class="nav-item">
+                <span
+                  title="Fullscreen"
+                  class="ti-fullscreen fullscreen"
+                ></span>
+              </li>	
+             
+              <li class="nav-item">
+                <a
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="ti-user"></span>
+                </a>
+                <div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
+                  <h5>John Willing</h5>
+                  <a class="dropdown-item" href="about-patient.html">
+                    <span class="ti-user"></span>Profile</a>
+  
+                  <a class="dropdown-item" href="#">
+                      <span class="ti-power-off"></span>Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- /Top Navigation -->
+        <!-- Breadcrumb -->
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Book Appointment</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Appointments</li>
+              <li class="breadcrumb-item active">Book Appointment</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Book Appointment</h3>
+                <!-- appointment_form.html -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                  {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+                <form method="POST" action="{% url 'patient:book-appointment' %}">
+                  {% csrf_token %}
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                          <label for="{{ form.doctor.id_for_label }}">Select Doctor:</label>
+                          <select 
+                              class="form-control{% if form.doctor.errors %} is-invalid{% endif %}" 
+                              id="{{ form.doctor.id_for_label }}" 
+                              name="{{ form.doctor.name }}" 
+                              onchange="fetchDiseases(this.value)" 
+                              required
+                          >
+                              <option value="">Select a Doctor</option>
+                              {% for doctor in doctors %}
+                                  <option value="{{ doctor.id }}" {% if form.doctor.value == doctor.id|stringformat:"s" %}selected{% endif %}>
+                                      {{ doctor.user.first_name }} ({{ doctor.specialization.specialization_name }})
+                                  </option>
+                              {% endfor %}
+                          </select>
+                          {% if form.doctor.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.doctor.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                          <label for="{{ form.disease.id_for_label }}">Select Disease:</label>
+                          <select 
+                              class="form-control{% if form.disease.errors %} is-invalid{% endif %}" 
+                              id="{{ form.disease.id_for_label }}" 
+                              name="{{ form.disease.name }}" 
+                              required
+                          >
+                              <option value="">Select a Disease</option>
+                          </select>
+                          {% if form.disease.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.disease.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                          <label for="{{ form.appointment_date.id_for_label }}">Appointment Date</label>
+                          <input 
+                              type="date" 
+                              placeholder="Appointment Date" 
+                              class="form-control{% if form.appointment_date.errors %} is-invalid{% endif %}" 
+                              id="{{ form.appointment_date.id_for_label }}" 
+                              name="{{ form.appointment_date.name }}" 
+                              value="{{ form.appointment_date.value|default_if_none:'' }}"
+                          />
+                          {% if form.appointment_date.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.appointment_date.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+                  
+                      <div class="form-group col-md-6">
+                          <label for="id_appointment_time">Appointment Time</label>
+                          <input 
+                              type="time" 
+                              class="form-control{% if form.appointment_time.errors %} is-invalid{% endif %}" 
+                              name="appointment_time" 
+                              id="id_appointment_time" 
+                              value="{{ form.appointment_time.value|default_if_none:'' }}" 
+                          />
+                          {% if form.appointment_time.errors %}
+                              <div class="invalid-feedback">
+                                  {% for error in form.appointment_time.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </div>
+                          {% endif %}
+                      </div>
+                  
+                      <div class="form-group col-md-6 mb-3">
+                          <button type="submit" class="btn btn-primary btn-lg">
+                              Book 
+                          </button>
+                      </div>
+                  </div>
+              </form>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                  function fetchDiseases(doctorId) {
+                      if (!doctorId) {
+                          $('#id_disease').html('<option value="">Select a Disease</option>');
+                          return;
+                      }
+                      
+                      $.ajax({
+                          url: "{% url 'patient:get_diseases' %}",
+                          data: { doctor_id: doctorId },
+                          success: function(data) {
+                              var diseaseSelect = $('#id_disease');
+                              diseaseSelect.html('<option value="">Select a Disease</option>');
+                              
+                              $.each(data.diseases, function(index, disease) {
+                                  diseaseSelect.append(
+                                      $('<option>', { value: disease.id, text: disease.problem_name })
+                                  );
+                              });
+                          },
+                          error: function(xhr, errmsg, err) {
+                              console.error('Error fetching diseases:', errmsg);
+                          }
+                      });
+                  }
+              </script>
+   
+  
+{% endblock %}
