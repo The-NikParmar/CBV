@@ -7,5 +7,7 @@ app_name = 'user'
 urlpatterns = [
     path('', PatientSignup.as_view(), name='PatientSignup'),
     path('login/',CustomLoginView.as_view(),name='login'),
-    path('logout/',LogoutView.as_view(),name='logout')
+    path('logout/',LogoutView.as_view(),name='logout'),
+    path('change-password/', CustomPasswordChangeView.as_view(), name='change-password'),
+
 ]

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.urls import reverse_lazy
 from django.views.generic import * 
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 from .models import *   
 from .forms import *
 from patient.models import * 
@@ -9,10 +11,11 @@ from django.urls import reverse_lazy
 from patient.views import *
 from patient.urls import *
 from doctor.urls import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class PatientSignup(FormView):
     template_name = "user/sign-up.html"
-    form_class = CustomUserForm
+    form_class = CustomUserForm 
     
     def form_valid(self, form):
         form_class=self.form_class(self.request.POST)
@@ -44,7 +47,7 @@ class CustomLoginView(FormView):
             elif user.role == CustomUser.Doctor:
                 return redirect('doctor:dashboard')
             elif user.role == CustomUser.Admin:
-                return redirect('custom_admin:dashboard')  
+                return redirect('custom-admin:dashboard')  
             else:
                 return redirect('patient:user_index')  
         return super().form_valid(form)
@@ -53,10 +56,25 @@ class CustomLoginView(FormView):
         print("Form Errors:", form.errors)
         return super().form_invalid(form)
 
-class LogoutView(View):
+class LogoutView(LoginRequiredMixin,View):
     def get(self, request):
         logout(request) 
         return redirect('user:login')  
     
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'user/change_password.html'
+    success_url = reverse_lazy('user:login')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_role = self.request.user.role
+        if user_role == 'Patient':
+            context['cancel_url'] = reverse_lazy('patient:user_index') 
+        elif user_role == 'Doctor':
+            context['cancel_url'] = reverse_lazy('doctor:dashboard') 
+        else:
+            context['cancel_url'] = reverse_lazy('custom-admin:dashboard')  
+        return context
     
     

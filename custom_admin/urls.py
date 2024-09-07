@@ -3,7 +3,7 @@ from custom_admin.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name = 'custom_admin'
+app_name = 'custom-admin'
 
 urlpatterns = [
     path('dashboard/',DashboardView.as_view(),name='dashboard'),
@@ -31,8 +31,11 @@ urlpatterns = [
 
     path('appointments/',AppointmentsListView.as_view(),name='appointments'),
     
-     path('disease/',DiseaseListView.as_view(),name='disease'),
-    
+    path('disease/',DiseaseView.as_view(),name='disease'),
+    path('add-disease/',DiseaseAddView.as_view(),name='add-disease'),
+    path('disease/<int:pk>/update/', DiseaseUpdateView.as_view(), name='edit-disease'),
+    path('disease/<int:pk>/delete/', DiseaseDeleteView.as_view(), name='delete-disease'),
+
 ]
 
 if settings.DEBUG:

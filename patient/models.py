@@ -32,7 +32,6 @@ class Appointment(BaseModel):
 
     def save(self, *args, **kwargs):
         if not self.end_time:
-            # Calculate end time based on appointment_time and disease duration
             start_datetime = datetime.combine(self.appointment_date, self.appointment_time)
             end_datetime = start_datetime + self.disease.time_required
             self.end_time = end_datetime.time()

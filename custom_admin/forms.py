@@ -157,8 +157,18 @@ class PatientUpdateForm(forms.ModelForm):
                 user.save()
         return user
     
-    
 class DiseaseForm(forms.ModelForm):
     class Meta:
         model = Disease
-        fields = ['problem_name' ,'time_required', 'specialization']
+        fields = ['problem_name', 'time_required', 'specialization']
+
+    problem_name = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Disease Name'})
+    )
+    time_required = forms.DurationField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter in seconds'})
+    )
+    specialization = forms.ModelChoiceField(
+        queryset=Specialization.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )

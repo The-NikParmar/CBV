@@ -43,7 +43,7 @@
                         <a href="{% url "doctor:edit-profile" %}" class="btn btn-success mb-2"
                           ><span class="ti-pencil-alt"></span> Edit Profile</a
                         >
-                        <a href="{% url "doctor:doctor-change-password" %}" class="btn btn-primary">
+                        <a href="{% url "user:change-password" %}" class="btn btn-primary">
                           <span class="ti-key"></span> Change Password
                         </a>
                       </div>
@@ -75,7 +75,7 @@
                           </tr>
                           <tr>
                             <td><strong>Date Of Birth</strong></td>
-                            <td>{{ doctor.user.date_of_birth }}</td>
+                            <td>{{ doctor.user.date_of_birth|date:'d-m-Y' }}</td>
                           </tr>
                           <tr>
                             <td><strong>Email</strong></td>

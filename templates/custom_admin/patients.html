@@ -75,12 +75,12 @@
                             </div>
                           </td>
                           <td>{{ forloop.counter }}</td>
-                          <td><b><a href="{% url "custom_admin:patient-about" patient.pk %}">{{ patient.user.first_name }} {{ patient.user.last_name }}</a></b></td>
+                          <td><b><a href="{% url "custom-admin:patient-about" patient.pk %}">{{ patient.user.first_name }} {{ patient.user.last_name }}</a></b></td>
                           <td>{{ patient.user.age }}</td>
                           <td>{{ patient.user.phone_number }}</td>
                           <td>{{ patient.user.last_visit }}</td> 
                           <td>
-                              <a href="{% url "custom_admin:edit-patient" patient.pk %}" class="btn btn-primary btn-sm">
+                              <a href="{% url "custom-admin:edit-patient" patient.pk %}" class="btn btn-primary btn-sm">
                                   <span class="ti-pencil-alt"></span> Edit
                               </a>
                               
@@ -119,7 +119,7 @@
           </div>
           <div class="modal-footer">
             <!-- Form for delete action -->
-            <form method="post" action="{% url "custom_admin:delete-patient" patient.pk %}">
+            <form method="post" action="{% url "custom-admin:delete-patient" patient.pk %}">
               {% csrf_token %}
               <button type="submit" class="btn btn-danger">Delete</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

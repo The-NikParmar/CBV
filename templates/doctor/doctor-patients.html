@@ -1,0 +1,91 @@
+{% extends "doctor/base.html" %}
+{% load static %}
+{% block content %}
+ 
+ <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Patients</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Patients</li>
+              <li class="breadcrumb-item active">All Patients</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Patients List</h3>
+                <div class="table-responsive mb-3">
+                  <table id="tableId" class="table table-bordered table-striped">
+                      <thead>
+                          <tr>
+                              <th class="no-sort">
+                                  <div class="custom-control custom-checkbox">
+                                      <input class="custom-control-input" type="checkbox" id="select-all" />
+                                      <label class="custom-control-label" for="select-all"></label>
+                                  </div>
+                              </th>
+                              <th>Patient ID</th>
+                              <th>Patient Name</th>
+                              <th>Age</th>
+                              <th>Phone</th>
+                              <th>Last Visit</th>
+                              <th>Problem</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="appointment-{{ appointment.id }}" />
+                                    <label class="custom-control-label" for="appointment-{{ appointment.id }}"></label>
+                                </div>
+                            </td>
+                            <td>{{ appointment.patient.id }}</td>
+                            <td>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</td>
+                            <td>{{ appointment.patient.user.age }}</td>
+                            <td>{{ appointment.patient.user.phone_number }}</td>
+                            <td>{{ appointment.appointment_date|date:'d-m-Y' }}</td>
+                            <td>{{ appointment.disease.problem_name }}</td>
+                            <td>
+                                <a href="{% url "doctor:patient-detail" appointment.pk %}">
+                                    <span class="ti-eye btn btn-danger lg"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8">No appointments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                  <!-- Export links -->
+              </div>
+              
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+{% endblock %}

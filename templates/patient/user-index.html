@@ -1,51 +1,9 @@
 {% extends "patient/base.html" %}
 {% load static %}
 {% block content %}
+
       <!-- Page Content -->
-      <div id="content">
-        <!-- Top Navigation -->
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="responsive-logo">
-              <a href="index.html"
-                ><img src="{% static 'images/logo-dark.png'%}" class="logo" alt="logo"
-              /></a>
-            </div>
-            <ul class="nav">
-              <li class="nav-item">
-                <span class="ti-menu" id="sidebarCollapse"></span>
-              </li>
-              <li class="nav-item">
-                <span
-                  title="Fullscreen"
-                  class="ti-fullscreen fullscreen"
-                ></span>
-              </li>	
-             
-              <li class="nav-item">
-                <a
-                  class="dropdown-toggle"
-                  data-toggle="dropdown"
-                  href="#"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span class="ti-user"></span>
-                </a>
-                <div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
-                  <h5>John Willing</h5>
-                  <a class="dropdown-item" href="about-patient.html">
-                    <span class="ti-user"></span>Profile</a>
-  
-                  <a class="dropdown-item" href="{% url "user:logout" %}">
-                      &nbsp;&nbsp;&nbsp;<span class="ti-power-off"></span>Logout</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <!-- /Top Navigation -->
+    
         <!-- Breadcrumb -->
         <!-- Page Title -->
         <div class="row no-margin-padding">
@@ -55,7 +13,7 @@
           <div class="col-md-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="index.html">
+                <a href="{% url "patient:user_index" %}">
                   <span class="ti-home"></span>
                 </a>
               </li>
@@ -67,14 +25,16 @@
 
         <!-- Main Content -->
         <div class="container-fluid home">
-          <div class="row">
-           
-          </div>
+          
+        </div>
 
           <div class="row">
             <!-- Widget Item -->
            
           </div>
+          <div class="row">
+        
+					</div>
 
           <div class="row">
             <!-- Widget Item -->
@@ -94,66 +54,29 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {% for appointment in latest_appointments %}
                       <tr>
-                        <td>Rajesh</td>
-                        <td>Manoj Kumar</td>
-                        <td>Dental</td>
-                        <td>12-10-2018</td>
-                        <td>12:10PM</td>
+                        <td>{{ appointment.patient.user.first_name }}</td>
+                        <td>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</td>
+                        <td>{{ appointment.disease.problem_name }}</td>
+                        <td>{{ appointment.appointment_date|date:'d-m-Y' }}</td>
+                        <td>{{ appointment.appointment_time }}</td>
                         <td>
-                          <span class="badge badge-success">Completed</span>
+                          {% if appointment.status == 'P' %}
+                            <span class="badge badge-warning">Pending</span>
+                          {% elif appointment.status == 'C' %}
+                            <span class="badge badge-success">Confirmed</span>
+                          {% elif appointment.status == 'D' %}
+                            <span class="badge badge-primary">Completed</span>
+                          {% elif appointment.status == 'X' %}
+                            <span class="badge badge-danger">Canceled</span>
+                          {% else %}
+                            <span class="badge badge-secondary">Unknown</span>
+                          {% endif %}
                         </td>
+                      {% endfor %}
                       </tr>
-                      <tr>
-                        <td>Riya</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:10PM</td>
-                        <td>
-                          <span class="badge badge-warning">Pending</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Siri</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:30PM</td>
-                        <td>
-                          <span class="badge badge-danger">Cancelled</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Rajesh</td>
-                        <td>Manoj Kumar</td>
-                        <td>Dental</td>
-                        <td>12-10-2018</td>
-                        <td>12:10PM</td>
-                        <td>
-                          <span class="badge badge-success">Completed</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Riya</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:10PM</td>
-                        <td>
-                          <span class="badge badge-warning">Pending</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Siri</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:30PM</td>
-                        <td>
-                          <span class="badge badge-danger">Cancelled</span>
-                        </td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -161,50 +84,29 @@
             </div>
             <!-- /Widget Item -->
           </div>
+          
 
           <div class="row">
             <!-- Widget Item -->
             <div class="col-md-12">
               <div class="widget-area-2 progress-status proclinic-box-shadow">
-                <h3 class="widget-title">Doctors Availability</h3>
+                <h3 class="widget-title">Doctors </h3>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th>Doctor</th>
                         <th>Speciality</th>
-                        <th>Availability</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for doctor in doctors  %}
                       <tr>
-                        <td>Rajesh</td>
-                        <td>Dental</td>
-                        <td>
-                          <span class="badge badge-success">Available</span>
-                        </td>
+                        <td>Dr.{{ doctor.user.first_name }} {{ doctor.user.last_name }}</td>
+                        <td>{{ doctor.specialization.specialization_name}}</td>
                       </tr>
-                      <tr>
-                        <td>Riya</td>
-                        <td>Ortho</td>
-                        <td>
-                          <span class="badge badge-warning">On Leave</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Siri</td>
-                        <td>Skin</td>
-                        <td>
-                          <span class="badge badge-danger">Not Available</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Rajesh</td>
-                        <td>Dental</td>
-                        <td>
-                          <span class="badge badge-success">Available</span>
-                        </td>
-                      </tr>
+                      {% endfor %}
+                     
                     </tbody>
                   </table>
                 </div>
@@ -217,4 +119,5 @@
       </div>
       <!-- /Page Content -->
     </div>
+    
     {% endblock %}

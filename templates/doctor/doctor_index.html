@@ -25,33 +25,50 @@
         <div class="container-fluid home">
           <div class="row">
             <!-- Widget Item -->
-            <div class="col-md-6">
-              <div class="widget-area proclinic-box-shadow color-red">
+            <div class="col-md-3">
+              <div class="widget-area proclinic-box-shadow color-blue">
                 <div class="widget-left">
-                  <span class="ti-user"></span>
+                  <span class="ti-wheelchair"></span>
                 </div>
                 <div class="widget-right">
                   <h4 class="wiget-title">Patients</h4>
-                  <span class="numeric color-red">348</span>
-                  <p class="inc-dec mb-0">
-                    <span class="ti-angle-up"></span> +20% Increased
-                  </p>
+                  <span class="numeric color-blue">{{ total_patients }}</span>
+                  
                 </div>
               </div>
             </div>
             <!-- /Widget Item -->
             <!-- Widget Item -->
-            <div class="col-md-6">
-              <div class="widget-area proclinic-box-shadow color-green">
+            <div class="col-md-3">
+              <div class="widget-area proclinic-box-shadow color-yellow">
                 <div class="widget-left">
-                  <span class="ti-bar-chart"></span>
+                  <span class="ti-calendar"></span>
                 </div>
                 <div class="widget-right">
                   <h4 class="wiget-title">Appointments</h4>
-                  <span class="numeric color-green">1585</span>
-                  <p class="inc-dec mb-0">
-                    <span class="ti-angle-down"></span> -15% Decreased
-                  </p>
+                  <span class="numeric color-yellow">{{ total_appointments }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="widget-area proclinic-box-shadow color-green">
+                <div class="widget-left">
+                  <span class="ti-check"></span>
+                </div>
+                <div class="widget-right">
+                  <h4 class="wiget-title">Approved Appointments</h4>
+                  <span class="numeric color-green">{{ approved_appointments_count }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="widget-area proclinic-box-shadow color-red">
+                <div class="widget-left">
+                  <span class="ti-close"></span>
+                </div>
+                <div class="widget-right">
+                  <h4 class="wiget-title">Cancle Appointments</h4>
+                  <span class="numeric color-red">{{ rejected_appointments_count }}</span>
                 </div>
               </div>
             </div>
@@ -67,76 +84,42 @@
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>No</th>
                         <th>Patient Name</th>
-                        <th>Doctor</th>
-                        <th>Check-Up</th>
+                        <th>Disease</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for appointment in appointments %}
                       <tr>
-                        <td>Rajesh</td>
-                        <td>Manoj Kumar</td>
-                        <td>Dental</td>
-                        <td>12-10-2018</td>
-                        <td>12:10PM</td>
-                        <td>
-                          <span class="badge badge-success">Completed</span>
-                        </td>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ appointment.patient }}</td> <!-- Adjust if necessary -->
+                          <td>{{ appointment.disease.problem_name }}</td>
+                          <td>{{ appointment.appointment_date|date:'d-m-Y' }}</td>
+                          <td>{{ appointment.appointment_time }}</td>
+                          <td>
+                              {% if appointment.status == 'P' %}
+                                  <span class="badge badge-warning">Pending</span>
+                              {% elif appointment.status == 'C' %}
+                                  <span class="badge badge-success">Confirmed</span>
+                              {% elif appointment.status == 'D' %}
+                                  <span class="badge badge-primary">Completed</span>
+                              {% elif appointment.status == 'X' %}
+                                  <span class="badge badge-danger">Canceled</span>
+                              {% else %}
+                                  <span class="badge badge-secondary">Unknown</span>
+                              {% endif %}
+                          </td>
                       </tr>
+                      {% empty %}
                       <tr>
-                        <td>Riya</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:10PM</td>
-                        <td>
-                          <span class="badge badge-warning">Pending</span>
-                        </td>
+                          <td colspan="6">No appointments found.</td>
                       </tr>
-                      <tr>
-                        <td>Siri</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:30PM</td>
-                        <td>
-                          <span class="badge badge-danger">Cancelled</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Rajesh</td>
-                        <td>Manoj Kumar</td>
-                        <td>Dental</td>
-                        <td>12-10-2018</td>
-                        <td>12:10PM</td>
-                        <td>
-                          <span class="badge badge-success">Completed</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Riya</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:10PM</td>
-                        <td>
-                          <span class="badge badge-warning">Pending</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Siri</td>
-                        <td>Daniel</td>
-                        <td>Ortho</td>
-                        <td>12-10-2018</td>
-                        <td>1:30PM</td>
-                        <td>
-                          <span class="badge badge-danger">Cancelled</span>
-                        </td>
-                      </tr>
-                    </tbody>
+                      {% endfor %}
+        </tbody>
                   </table>
                 </div>
               </div>

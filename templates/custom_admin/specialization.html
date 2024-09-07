@@ -33,7 +33,7 @@
                   class="d-flex justify-content-between align-items-center mb-3"
                 >
                   <h3 class="widget-title">Specialization List</h3>
-                  <a href="{% url "custom_admin:Addspecialization" %}" class="btn btn-primary"
+                  <a href="{% url "custom-admin:Addspecialization" %}" class="btn btn-primary"
                     ><span class="ti-plus"></span> Add Specialization</a
                   >
                 </div>
@@ -52,7 +52,7 @@
                               <td>{{ forloop.counter }}</td>
                               <td>{{ specialization.specialization_name }}</td>
                               <td>
-                                  <a href="{% url 'custom_admin:edit_specialization' specialization.pk %}" class="btn btn-primary">
+                                  <a href="{% url 'custom-admin:edit_specialization' specialization.pk %}" class="btn btn-primary">
                                       <span class="ti-pencil-alt"></span> Edit
                                   </a>
                                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_{{ specialization.pk }}">
@@ -95,7 +95,7 @@
           </div>
           <div class="modal-footer">
             <!-- Form for delete action -->
-            <form method="post" action="{% url 'custom_admin:delete_specialization' specialization.pk %}">
+            <form method="post" action="{% url 'custom-admin:delete_specialization' specialization.pk %}">
               {% csrf_token %}
               <button type="submit" class="btn btn-danger">Delete</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

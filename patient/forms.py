@@ -8,8 +8,6 @@ from datetime import datetime
 from django.utils import timezone
 from datetime import timedelta
 
-
-
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
@@ -19,18 +17,17 @@ class AppointmentForm(forms.ModelForm):
         doctor_id = kwargs.pop('doctor_id', None)
         super().__init__(*args, **kwargs)
 
-        # Set the queryset for doctors
         self.fields['doctor'].queryset = Doctor.objects.all()
 
-        # Dynamically update the queryset for diseases if doctor_id is provided
         if doctor_id:
             try:
                 doctor = Doctor.objects.get(id=doctor_id)
                 specialization = doctor.specialization
                 self.fields['disease'].queryset = Disease.objects.filter(specialization=specialization)
+                self.fields['doctor'].initial = doctor_id
             except Doctor.DoesNotExist:
                 self.fields['disease'].queryset = Disease.objects.none()
-
+        
     def clean(self):
         cleaned_data = super().clean()
         doctor = cleaned_data.get('doctor')
@@ -55,3 +52,4 @@ class AppointmentForm(forms.ModelForm):
                 raise forms.ValidationError('The doctor already has an appointment at this time.')
 
         return cleaned_data
+    

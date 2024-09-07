@@ -1,0 +1,114 @@
+{% extends "doctor/base.html" %}
+{% load static %}
+{% block content %}
+ 
+ <!-- Page Title -->
+<!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Patient Details</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Patients</li>
+              <li class="breadcrumb-item active">Patient Details</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-6">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Patient Details</h3>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td><strong>Name</strong></td>
+                        <td>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Date Of Birth</strong></td>
+                        <td>{{ appointment.patient.user.date_of_birth|date:'d-m-Y' }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Gender</strong></td>
+                        <td>{{ appointment.patient.user.gender }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Address</strong></td>
+                        <td>{{ appointment.patient.user.address }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Phone </strong></td>
+                        <td>{{ appointment.patient.user.phone_number }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Email</strong></td>
+                        <td>{{ appointment.patient.user.email }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+            <!-- Widget Item -->
+            <div class="col-md-6">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Patient Visits</h3>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Doctor Name</th>
+                        <th>Disease</th>
+                        <th>Visit Date</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for appointment in patient_appointments %}
+                      <tr>
+                        <td>{{ appointment.doctor.user.first_name}}</td>
+                        <td>{{ appointment.disease.problem_name }}</td>
+                        <td>{{ appointment.appointment_date|date:'d-m-Y' }}</td>
+                        <td>
+                          {% if appointment.status == 'P' %}
+                              <span class="badge badge-warning">Pending</span>
+                          {% elif appointment.status == 'C' %}
+                              <span class="badge badge-success">Confirmed</span>
+                          {% elif appointment.status == 'D' %}
+                              <span class="badge badge-primary">Completed</span>
+                          {% elif appointment.status == 'X' %}
+                              <span class="badge badge-danger">Canceled</span>
+                          {% else %}
+                              <span class="badge badge-secondary">Unknown</span>
+                          {% endif %}
+                      </td>
+                      </tr>
+                      {% endfor %}
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+{% endblock %}

@@ -52,12 +52,12 @@
           </li>
 
           <li>
-            <a href="appointments.html">
+            <a href="{% url "doctor:doctor-appointments" %}">
               <span class="ti-pencil-alt"></span> Appointments
             </a>
           </li>
           <li>
-            <a href="patients.html">
+            <a href="{% url "doctor:doctor-patient" %}">
               <span class="ti-wheelchair"></span> Patients
             </a>
           </li>
@@ -117,8 +117,8 @@
                       <div
                         class="dropdown-menu proclinic-box-shadow2 profile animated flipInY"
                       >
-                        <h5>John Willing</h5>
-                        <a class="dropdown-item" href="about-doctor.html">
+                        <h5></h5>
+                        <a class="dropdown-item" href="{% url "doctor:doctor-profile" %}">
                           <span class="ti-user"></span> Pofile</a
                         >
       

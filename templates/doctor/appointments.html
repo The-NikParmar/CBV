@@ -1,0 +1,118 @@
+{% extends "doctor/base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- Page Title -->
+        <div class="row no-margin-padding">
+          <div class="col-md-6">
+            <h3 class="block-title">Appointments</h3>
+          </div>
+          <div class="col-md-6">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">
+                  <span class="ti-home"></span>
+                </a>
+              </li>
+              <li class="breadcrumb-item">Appointments</li>
+              <li class="breadcrumb-item active">Appointments List</li>
+            </ol>
+          </div>
+        </div>
+        <!-- /Page Title -->
+
+        <!-- /Breadcrumb -->
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+              <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Appointments List</h3>
+                <div class="table-responsive mb-3">
+                  <table
+                    id="tableId"
+                    class="table table-bordered table-striped"
+                  >
+                    <thead>
+                      <tr>
+                        <th class="no-sort">
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="select-all"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="select-all"
+                            ></label>
+                          </div>
+                        </th>
+                        <th>No</th>
+                        <th>Patient Name </th>
+                        <th>Disease</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th style="text-align: center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for appointment in object_list %}
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              class="custom-control-input"
+                              type="checkbox"
+                              id="1"
+                            />
+                            <label class="custom-control-label" for="1"></label>
+                          </div>
+                        </td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</td>
+                        <td>{{ appointment.disease.problem_name }}</td>
+                        <td>{{ appointment.appointment_date }}</td>
+                        <td>{{ appointment.appointment_time }}</td>
+                        <td>
+                          <div
+                            class="d-flex justify-content-center"
+                            style="padding: 0"
+                          >
+                          {% if appointment.status == 'P' %}
+                          <form action="{% url 'doctor:approve-appointment' appointment.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn btn-success btn-sm mx-1">
+                              Approve
+                            </button>
+                          </form>
+                          <form action="{% url 'doctor:reject-appointment' appointment.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn btn-danger btn-sm mx-1">
+                              Reject
+                            </button>
+                          </form>
+                          {% elif appointment.status == 'C' %}
+                            <span class="badge badge-success">Confirmed</span>
+                          {% elif appointment.status == 'X' %}
+								              <span class="badge badge-danger">Canceled</span>
+                          </div>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- /Widget Item -->
+          </div>
+        </div>
+        <!-- /Main Content -->
+      </div>
+      <!-- /Page Content -->
+    </div>
+{% endblock %}

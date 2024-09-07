@@ -40,50 +40,6 @@
                     <div class="col-md-8">
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title text-center">Login</h3>
-                            {{request.user.email}}
-                            {% comment %} <form method="post" action="{% url 'user:login' %}" id="loginForm">
-                                {% csrf_token %}
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="{{ form.username.id_for_label }}">Email</label>
-                                        <input 
-                                            type="email" 
-                                            class="form-control" 
-                                            name="username" 
-                                            id="{{ form.username.id_for_label }}" 
-                                            placeholder="Email" 
-                                            required
-                                            value="{{ form.username.value|default_if_none:'' }}" 
-                                        />
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="{{ form.password.id_for_label }}">Password</label>
-                                        <input 
-                                            type="password" 
-                                            class="form-control" 
-                                            required
-                                            name="password" 
-                                            id="{{ form.password.id_for_label }}" 
-                                            placeholder="Password" 
-                                        />
-                                      
-                                    </div>
-                                    
-                                    <div class="form-group col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                            Submit
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="auth-footer-text">
-                                        <small class="text-center">
-                                            Already Sign Up,
-                                            <a href="{% url 'user:PatientSignup' %}">Sign Up</a> Here
-                                        </small>
-                                    </div>
-                                </div>
-                            </form> {% endcomment %}
                             <form method="post" action="{% url 'user:login' %}" id="loginForm">
                                 {% csrf_token %}
                                 <div class="form-row">

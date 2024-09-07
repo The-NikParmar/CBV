@@ -33,7 +33,7 @@
                   class="d-flex justify-content-between align-items-center mb-3"
                 >
                   <h3 class="widget-title">Doctors List</h3>
-                  <a href="{% url "custom_admin:Adddoctor" %}" class="btn btn-primary"
+                  <a href="{% url "custom-admin:Adddoctor" %}" class="btn btn-primary"
                     ><span class="ti-plus"></span> Add Doctor</a
                   >
                 </div>
@@ -79,13 +79,13 @@
                           </div>
                         </td>
                         <td>{{ forloop.counter }}</td>
-                        <td><b><a href="{% url "custom_admin:doctor-about" doctor.pk %}">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</a></b></td>
+                        <td><b><a href="{% url "custom-admin:doctor-about" doctor.pk %}">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</a></b></td>
                         <td>{{ doctor.experience }}</td>
                         <td>{{ doctor.user.phone_number }}</td>
                         <td>{{ doctor.specialization.specialization_name }}</td>
                         <td>
                           <a
-                            href="{% url "custom_admin:editdoctor" doctor.id %}"
+                            href="{% url "custom-admin:editdoctor" doctor.id %}"
                             class="btn btn-primary btn-sm"
                           >
                             <span class="ti-pencil-alt"></span> Edit
@@ -131,7 +131,7 @@
            </div>
            <div class="modal-footer">
              <!-- Form for delete action -->
-             <form method="post" action="{% url "custom_admin:delete-doctor" doctor.pk %}">
+             <form method="post" action="{% url "custom-admin:delete-doctor" doctor.pk %}">
                {% csrf_token %}
                <button type="submit" class="btn btn-danger">Delete</button>
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

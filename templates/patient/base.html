@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>ProClinic-Bootstrap4 Hospital Admin</title>
+    <title>ProClinic</title>
     <!-- Fav  Icon Link -->
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/fav.png'%}" />
+    <link rel="shortcut icon" type="{% static 'image/png' %}" href="{% static 'images/fav.png'%}" />
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <!-- themify icons CSS -->
@@ -18,11 +18,16 @@
     <link rel="stylesheet" href="{% static 'css/red.css' %}" id="style_theme" />
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
     <!-- morris charts -->
-    <link rel="stylesheet" href="{% static 'charts/css/morris.css' %}" />
+    <link rel="stylesheet" href="{% static 'charts/css/morris.css'%}" />
     <!-- jvectormap -->
     <link rel="stylesheet" href="{% static 'css/jquery-jvectormap.css' %}" />
+    <link rel="stylesheet" href="{% static 'datatable/dataTables.bootstrap4.min.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="{% static 'js/book-appointment.js' %}"></script>
 
-    <script src="{% static 'js/modernizr.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
 
   <body>
@@ -35,12 +40,13 @@
     </div>
     <!--/Pre Loader -->
     
+    
     <div class="wrapper">
       <!-- Sidebar -->
       <nav id="sidebar" class="proclinic-bg">
         <div class="sidebar-header">
           <a href="index.html"
-            ><img src="{% static 'images/logo.png'%}" class="logo" alt="logo"
+            ><img src="{% static 'images/logo.png' %}" class="logo" alt="logo"
           /></a>
         </div>
         
@@ -50,11 +56,11 @@
           </li>
 
           <li>
-            <a href="about-patient.html"> <span class="ti-user"></span> Profile </a>
+            <a href="{% url "patient:patient-profile" %}"> <span class="ti-user"></span> Profile </a>
           </li>
           
           <li>
-            <a href="doctors.html"> <span class="ti-support"></span> All Doctors</a>
+            <a href="{% url "patient:all-doctors" %}"> <span class="ti-support"></span> All Doctors</a>
           </li>
           
           <li>
@@ -71,6 +77,41 @@
         </div>
       </nav>
       <!-- /Sidebar -->
+
+		<!-- Page Content -->
+		<div id="content">
+			<!-- Top Navigation -->
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="responsive-logo">
+						<a href="index.html"><img src="{% static 'images/logo-dark.png' %}" class="logo" alt="logo"></a>
+					</div>
+					<ul class="nav">
+						<li class="nav-item">
+							<span class="ti-menu" id="sidebarCollapse"></span>
+						</li>
+						<li class="nav-item">
+							<span title="Fullscreen" class="ti-fullscreen fullscreen"></span>
+						</li>
+						
+						<li class="nav-item">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="ti-user"></span>
+							</a>
+							<div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
+								<h5></h5>
+								<a class="dropdown-item" href="{% url "patient:patient-profile" %}">
+									<span class="ti-user"></span>Profile</a>
+
+                <a class="dropdown-item" href="{% url "user:logout" %}">
+                    <span class="ti-power-off"></span>Logout</a>
+							</div>
+						</li>
+					</ul>
+				
+				</div>
+			</nav>
+			<!-- /Top Navigation -->
 
 {% block content %}
       
@@ -89,13 +130,161 @@
   <script src="{% static 'js/popper.min.js' %}"></script>
   <!-- Bootstrap Library-->
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
   <!-- morris charts -->
   <script src="{% static 'charts/js/raphael-min.js' %}"></script>
   <script src="{% static 'charts/js/morris.min.js' %}"></script>
   <script src="{% static 'js/custom-morris.js' %}"></script>
 
+<!-- Datatable  -->
+  <script src="{% static 'datatable/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'datatable/dataTables.bootstrap4.min.js' %}"></script>
   <!-- Custom Script-->
   <script src="{% static 'js/custom.js' %}"></script>
+  <script src="{% static 'js/custom-datatables.js' %}"></script>
+</script>
+
+
+<script>
+  function fetchDiseases(doctorId) {
+    // Check if doctorId is provided
+    if (!doctorId) {
+        $('#id_disease').html('<option value="">Select a Disease</option>');
+        $('#available_slots').html(''); // Clear slots
+        return;
+    }
+
+    // Fetch diseases
+    $.ajax({
+        url: "{% url 'patient:get_diseases' %}",
+        data: { doctor_id: doctorId },
+        success: function(data) {
+            var diseaseSelect = $('#id_disease');
+            diseaseSelect.html('<option value="">Select a Disease</option>');
+
+            $.each(data.diseases, function(index, disease) {
+                diseaseSelect.append(
+                    $('<option>', { 
+                        value: disease.id, 
+                        text: disease.problem_name,
+                        'data-duration': disease.time_required
+                    })
+                );
+            });
+        },
+        error: function(xhr, errmsg, err) {
+            console.error('Error fetching diseases:', errmsg);
+            console.error('Response:', xhr.responseText);
+        }
+    });
+}
+function formatTime(slot) {
+  let [hours, minutes] = slot.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12; // Convert to 12-hour format
+  minutes = minutes < 10 ? '0' + minutes : minutes; // Pad minutes with leading zero
+  return `${hours}:${minutes} ${period}`;
+}
+
+function fetchAvailableSlots() {
+  var doctorId = $('#id_doctor').val();
+  var date = $('#id_appointment_date').val();
+  var diseaseId = $('#id_disease').val();
+
+  if (doctorId && date && diseaseId) {
+      $.ajax({
+          url: "{% url 'patient:get_available_slots' %}",
+          data: {
+              doctor_id: doctorId,
+              appointment_date: date,
+              disease_id: diseaseId
+          },
+          success: function(data) {
+              var slotContainer = $('#available_slots');
+              slotContainer.html(''); // Clear previous slots
+
+              if (data.slots) {
+                  $.each(data.slots, function(index, slot) {
+                      const formattedSlot = formatTime(slot);
+
+                      var slotItem = $('<div>', {
+                          class: 'slot-item'
+                      }).append(
+                          $('<label>', {
+                              class: 'btn btn-outline-success btn-slot'
+                          }).append(
+                              $('<input>', {
+                                  type: 'radio',
+                                  name: 'appointment_time',
+                                  value: slot,
+                                  'data-time': slot,
+                                  class: 'd-none' // Hide the actual radio button
+                              }).click(function() {
+                                  $('#id_appointment_time').val($(this).val());
+                                  $('.btn-slot').removeClass('selected'); // Remove previous selection
+                                  $(this).closest('label').addClass('selected'); // Add selection to the clicked slot
+                              }),
+                              ' ' + formattedSlot // Slot text
+                          )
+                      );
+
+                      // Append slot item to container
+                      slotContainer.append(slotItem);
+                  });
+              } else {
+                  console.error('No slots data received');
+              }
+          },
+          error: function(xhr, errmsg, err) {
+              console.error('Error fetching slots:', errmsg);
+              console.error('Response:', xhr.responseText);
+          }
+      });
+  }
+}
+$(document).ready(function() {
+  $('#id_doctor, #id_appointment_date, #id_disease').change(fetchAvailableSlots);
+
+  // Initialize minimum date for appointment_date field
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('{{ form.appointment_date.id_for_label }}').setAttribute('min', today);
+});
+
+
+$(document).ready(function() {
+  $('#id_doctor, #id_appointment_date, #id_disease').change(fetchAvailableSlots);
+
+  // Initialize minimum date for appointment_date field
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('{{ form.appointment_date.id_for_label }}').setAttribute('min', today);
+});
+
+$(document).ready(function() {
+  $('#id_doctor, #id_appointment_date, #id_disease').change(fetchAvailableSlots);
+
+  // Initialize minimum date for appointment_date field
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('{{ form.appointment_date.id_for_label }}').setAttribute('min', today);
+});
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('{{ form.appointment_date.id_for_label }}').setAttribute('min', today);
+});
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if alert should be shown
+    {% if show_alert %}
+        Swal.fire({
+            icon: 'success', // Ya 'error', 'warning', 'info', etc.
+            title: 'Alert!',
+            text: '{{ message }}',
+            confirmButtonText: 'OK'
+        });
+    {% endif %}
+});
+
+</script>
 </body>
 
 </html>

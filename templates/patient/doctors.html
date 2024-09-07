@@ -1,0 +1,83 @@
+	{% extends "patient/base.html" %}
+	{% load static %}
+	{% block content %}
+				<!-- Breadcrumb -->
+				<!-- Page Title -->
+				<div class="row no-margin-padding">
+					<div class="col-md-6">
+						<h3 class="block-title">Doctors</h3>
+					</div>
+					<div class="col-md-6">
+						<ol class="breadcrumb">						
+							<li class="breadcrumb-item">
+								<a href="{% url "patient:user_index" %}">
+									<span class="ti-home"></span>
+								</a>
+							</li>
+							<li class="breadcrumb-item">Doctors</li>
+							<li class="breadcrumb-item active">All Doctors</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /Page Title -->
+
+				<!-- /Breadcrumb -->
+				<!-- Main Content -->
+				<div class="container-fluid">
+
+					<div class="row">
+						<!-- Widget Item -->
+						<div class="col-md-12">
+							<div class="widget-area-2 proclinic-box-shadow">
+								<h3 class="widget-title">Doctors List</h3>
+								<div class="table-responsive mb-3">
+									<table id="tableId" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th class="no-sort">
+													<div class="custom-control custom-checkbox">
+														<input class="custom-control-input" type="checkbox" id="select-all">
+														<label class="custom-control-label" for="select-all"></label>
+													</div>
+												</th>
+												<th>No</th>
+												<th>Doctor Name</th>
+												<th>Experience <small>(in Years)</small></th>
+												<th>Phone</th>
+												<th>Specialization</th>
+												<th>Book Appointment</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for doctor in doctors  %}
+											<tr>
+												<td>
+													<div class="custom-control custom-checkbox">
+														<input class="custom-control-input" type="checkbox" id="1">
+														<label class="custom-control-label" for="1"></label>
+													</div>
+												</td>
+												<td>{{ forloop.counter }}</td>
+												<td>Dr.{{ doctor.user.first_name }} {{ doctor.user.last_name }}</td>
+												<td>{{ doctor.experience }}</td>
+												<td>{{ doctor.user.phone_number }}</td>
+												<td>{{ doctor.specialization.specialization_name }}</td>
+												<td>
+													<a href="{% url 'patient:book-appointment' %}?doctor_id={{ doctor.id }}" class="btn btn-outline-success lg">
+														<span class="ti-pencil-alt"></span> Book</a>
+												</td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>	
+								</div>
+							</div>
+						</div>
+						<!-- /Widget Item -->
+					</div>
+				</div>
+				<!-- /Main Content -->
+			</div>
+			<!-- /Page Content -->
+		</div>
+	{% endblock %}

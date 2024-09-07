@@ -8,7 +8,7 @@
           <div class="col-md-6">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="{% url "custom_admin:dashboard" %}">
+                <a href="{% url "custom-admin:dashboard" %}">
                   <span class="ti-home"></span>
                 </a>
               </li>
@@ -27,7 +27,7 @@
                   class="d-flex justify-content-between align-items-center mb-3"
                 >
                   <h3 class="widget-title">Room List</h3>
-                  <a href="{% url "custom_admin:Addrooms" %}" class="btn btn-primary"
+                  <a href="{% url "custom-admin:Addrooms" %}" class="btn btn-primary"
                     ><span class="ti-plus"></span> Room Allotment</a
                   >
                 </div>
@@ -58,7 +58,7 @@
                             <td>{{ room.doctor }}</td>
                             <td>
                               <a
-                                href="{% url "custom_admin:edit-room" room.id %}"
+                                href="{% url "custom-admin:edit-room" room.id %}"
                                 class="btn btn-primary btn-sm"
                               >
                                 <span class="ti-pencil-alt"></span> Edit
@@ -99,7 +99,7 @@
            </div>
            <div class="modal-footer">
              <!-- Form for delete action -->
-             <form method="post" action="{% url "custom_admin:delete-room" room.pk %}">
+             <form method="post" action="{% url "custom-admin:delete-room" room.pk %}">
                {% csrf_token %}
                <button type="submit" class="btn btn-danger">Delete</button>
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
